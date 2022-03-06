@@ -1,0 +1,56 @@
+plugins {
+    id "java"
+    id "maven-publish"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri("https://papermc.io/repo/repository/maven-public/")
+    }
+
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly "org.projectlombok:lombok:1.18.22"
+    annotationProcessor "org.projectlombok:lombok:1.18.22"
+    compileOnly "io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"
+    compileOnly 'dev.plex:Plex:0.8-SNAPSHOT'
+}
+
+group = "dev.plex"
+version = "0.1-SNAPSHOT"
+description = "ExampleModule"
+
+shadowJar {
+    archiveClassifier.set("")
+    relocate "org.bstats", "dev.plex"
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
+
+    javadoc {
+        options.memberLevel = JavadocMemberLevel.PRIVATE
+    }
+}

@@ -1,0 +1,4 @@
+name: ExampleModule
+main: dev.plex.ExampleModule
+description: An example module for plex
+version: 0.1
