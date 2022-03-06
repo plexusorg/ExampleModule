@@ -1,13 +1,15 @@
 plugins {
     id "java"
     id "maven-publish"
-    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 repositories {
-    mavenLocal()
     maven {
         url = uri("https://papermc.io/repo/repository/maven-public/")
+    }
+
+    maven {
+        url = uri("https://nexus.telesphoreo.me/repository/plex")
     }
 
     mavenCentral()
@@ -23,10 +25,6 @@ dependencies {
 group = "dev.plex"
 version = "1.0"
 description = "ExampleModule"
-
-shadowJar {
-    archiveClassifier.set("")
-}
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -45,10 +43,6 @@ tasks.withType(JavaCompile) {
 }
 
 tasks {
-    build {
-        dependsOn(shadowJar)
-    }
-
     javadoc {
         options.memberLevel = JavadocMemberLevel.PRIVATE
     }
