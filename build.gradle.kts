@@ -18,8 +18,8 @@ repositories {
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
-    compileOnly("io.papermc.paper:paper-api:1.19.1-R0.1-SNAPSHOT")
-    compileOnly("dev.plex:server:1.2-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
+    compileOnly("dev.plex:server:1.3-SNAPSHOT")
 }
 
 group = "dev.plex"
