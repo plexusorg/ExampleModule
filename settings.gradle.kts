@@ -1,1 +1,1 @@
-rootProject.name = "plexmodule-template"
+rootProject.name = "Module-Example"
