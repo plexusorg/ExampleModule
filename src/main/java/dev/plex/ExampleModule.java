@@ -10,7 +10,10 @@ public class ExampleModule extends PlexModule
     public void enable()
     {
         registerCommand(new ExampleCommand());
-        registerListener(new ExampleListener());
+        registerListener(new ExampleListener(this));
+        api().logging().info("{0} enabled with Plex API compatibility {1}",
+                getPlexModuleFile().getName(),
+                api().compatibility().version());
     }
 
     @Override
