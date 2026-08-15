@@ -18,7 +18,7 @@ repositories {
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.46")
     annotationProcessor("org.projectlombok:lombok:1.18.46")
-    compileOnly("io.papermc.paper:paper-api:26.1.2.build.+")
+    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
     compileOnly("dev.plex:api:2.0-SNAPSHOT")
 }
 
