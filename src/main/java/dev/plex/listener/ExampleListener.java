@@ -3,9 +3,10 @@ package dev.plex.listener;
 import dev.plex.ExampleModule;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class ExampleListener extends PlexListener
+public class ExampleListener implements Listener
 {
     private final ExampleModule module;
 

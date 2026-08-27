@@ -15,10 +15,4 @@ public class ExampleModule extends PlexModule
                 getPlexModuleFile().getName(),
                 api().compatibility().version());
     }
-
-    @Override
-    public void disable()
-    {
-        // Unregistering listeners / commands is handled by Plex
-    }
 }

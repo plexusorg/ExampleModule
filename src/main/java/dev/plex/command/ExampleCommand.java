@@ -74,7 +74,7 @@ public class ExampleCommand extends SimplePlexCommand
         }
 
         AtomicInteger bursts = new AtomicInteger();
-        api().scheduler().runEntityTimer(player, task ->
+        scheduler().runEntityTimer(player, task ->
         {
             int burst = bursts.incrementAndGet();
             Location origin = player.getLocation().add(0, 1, 0);
