@@ -59,7 +59,7 @@ public class ExampleCommand extends SimplePlexCommand
 
     private Component info()
     {
-        int compatibility = api().compatibility().version();
+        int compatibility = api().apiCompatibilityVersion();
         int loadedModules = api().modules().loadedModules().size();
         return mmString("<gold>Plex API compatibility:</gold> <yellow>" + compatibility
                 + "</yellow> <dark_gray>•</dark_gray> <gold>Loaded modules:</gold> <yellow>"

@@ -13,6 +13,6 @@ public class ExampleModule extends PlexModule
         registerListener(new ExampleListener(this));
         api().logging().info("{0} enabled with Plex API compatibility {1}",
                 getPlexModuleFile().getName(),
-                api().compatibility().version());
+                api().apiCompatibilityVersion());
     }
 }
