@@ -1,5 +1,7 @@
 package dev.plex.command;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -7,9 +9,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ExampleCommand extends SimplePlexCommand
@@ -24,29 +24,25 @@ public class ExampleCommand extends SimplePlexCommand
     }
 
     @Override
-    protected Component execute(@NotNull CommandSender sender, @Nullable Player player, @NotNull String[] args)
+    protected void configureCommand(LiteralArgumentBuilder<CommandSourceStack> command)
     {
-        if (args.length == 0)
-        {
-            return help();
-        }
+        command.executes(context -> executeCommand(context, (sender, player) -> help()));
+        command.then(word("action")
+                .suggests((context, builder) -> suggestMatching(builder, List.of("info", "sparkle")))
+                .executes(context -> executeCommand(context,
+                        (sender, player) -> executeTyped(player, string(context, "action"))))
+                .then(greedyString("ignored").executes(context -> executeCommand(context,
+                        (sender, player) -> executeTyped(player, string(context, "action"))))));
+    }
 
-        return switch (args[0].toLowerCase(Locale.ROOT))
+    private Component executeTyped(@Nullable Player player, String action)
+    {
+        return switch (action.toLowerCase(Locale.ROOT))
         {
             case "info" -> info();
             case "sparkle" -> sparkle(player);
             default -> usage();
         };
-    }
-
-    @Override
-    protected @NotNull List<String> suggestions(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args)
-    {
-        if (args.length == 1)
-        {
-            return List.of("info", "sparkle");
-        }
-        return List.of();
     }
 
     private Component help()
@@ -74,7 +70,7 @@ public class ExampleCommand extends SimplePlexCommand
         }
 
         AtomicInteger bursts = new AtomicInteger();
-        scheduler().runEntityTimer(player, task ->
+        ownTask(player.getScheduler().runAtFixedRate(taskOwner(), task ->
         {
             int burst = bursts.incrementAndGet();
             Location origin = player.getLocation().add(0, 1, 0);
@@ -84,7 +80,7 @@ public class ExampleCommand extends SimplePlexCommand
             {
                 task.cancel();
             }
-        }, null, 1L, 5L);
+        }, null, 1L, 5L));
 
         return mmString("<rainbow>A tiny celebration!</rainbow>");
     }
