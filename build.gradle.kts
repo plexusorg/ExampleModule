@@ -1,5 +1,6 @@
 plugins {
     java
+    checkstyle
     `maven-publish`
 }
 
@@ -28,6 +29,11 @@ description = "ExampleModule"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(25))
+}
+
+checkstyle {
+    toolVersion = "14.3.0"
+    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
 }
 
 publishing {
