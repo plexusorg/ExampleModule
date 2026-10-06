@@ -1,7 +1,7 @@
 name: Module-Example
 main: dev.plex.ExampleModule
 description: An example module for Plex
-version: 2.0-SNAPSHOT
+version: 2.0
 apiCompatibility: 1
 updater:
   enabled: false
